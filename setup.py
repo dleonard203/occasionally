@@ -1,16 +1,20 @@
 from setuptools import setup
 
 def readme():
-    with open("README.md") as f:
+    with open("README.md", "r") as f:
         return f.read()
 
 setup(name="occasionally",
-        version="0.0.0",
-        description="A task scheduling system implemented using only stdlib",
+        version="v0.0.2",
+        # description="A task scheduling system implemented using only stdlib.",
         long_description=readme(),
-        long_description_content_type="text/markdown",
-        # todo add classifiers
-        classifiers=[],
+        long_description_content_type='text/markdown',
+        classifiers=[
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.7',
+        'Intended Audience :: Developers'
+        ],
         url="https://github.com/dleonard203/occasionally",
         author="Dave Leonard",
         keywords="task scheduler",

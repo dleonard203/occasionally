@@ -2,6 +2,7 @@ import time
 import pytest
 from occasionally.scheduler import Scheduler
 from occasionally.task import Task
+from occasionally.time_helpers import after_x_seconds
 
 
 def test_scheduler_enqueue(scheduler):
@@ -16,8 +17,8 @@ def test_scheduler_enqueue(scheduler):
 
 
 def test_scheduler_foreground(scheduler, empty):
-    t1 = Task(empty, lambda: 0.1, just_x_times=2)
-    t2 = Task(empty, lambda: 0.1, just_x_times=2)
+    t1 = Task(empty, after_x_seconds(0.1), just_x_times=2)
+    t2 = Task(empty, after_x_seconds(0.1), just_x_times=2)
     scheduler.add_task(t1)
     scheduler.add_task(t2)
     now = time.time()

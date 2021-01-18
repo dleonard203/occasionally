@@ -9,7 +9,7 @@ The `ocassionally.scheduler.Scheduler` class runs these Tasks at their set inter
 
 For example:
 
-```
+```python
 from ocasionally.task import Task
 from ocassionally.scheduler import Scheduler
 from ocasionally.time_helper import after_x_minutes
