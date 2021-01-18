@@ -10,6 +10,7 @@ The `ocassionally.scheduler.Scheduler` class runs these Tasks at their set inter
 For example:
 
 ```python
+import dominos
 from ocasionally.task import Task
 from ocassionally.scheduler import Scheduler
 from ocasionally.time_helper import after_x_minutes
@@ -19,8 +20,15 @@ def clean_db():
     with MyDbConnection() as db:
         db.Execute("DELETE FROM users WHERE temp_user = 1 AND logged_out = 1")
 
+def order_from_dominos():
+    my_creds = GetDominosCreds()
+    order = {"Pizza": {"Type": "Pan", "Toppings": ["Pepperoni", "Banana Pepper"]}}
+    dominos.order_from_account(my_creds, order)
+
 db_cleaner = ocassionally.task.Task(clean_db, after_x_mintes(5))  # makes a task that cleans the db every 5 minutes
+dominos_orderer = ocassionally.task.Task(order_from_dominos, after_x_hours(24 * 7))  # orders dominos once per week
 Scheduler.add_task(db_cleaner)  # adds the task to the scheduler
+Scheduler.add_task(dominos_orderer)
 Scheduler.foreground()  # start the scheduler running in foreground mode (main thread)
 ```
 
