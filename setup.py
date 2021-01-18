@@ -5,12 +5,16 @@ def readme():
         return f.read()
 
 setup(name="occasionally",
-        version="0.0.0",
+        version="v0.0.1",
         description="A task scheduling system implemented using only stdlib",
         long_description=readme(),
         long_description_content_type="text/markdown",
-        # todo add classifiers
-        classifiers=[],
+        classifiers=[
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.7',
+        'Intended Audience :: Developers'
+        ],
         url="https://github.com/dleonard203/occasionally",
         author="Dave Leonard",
         keywords="task scheduler",
