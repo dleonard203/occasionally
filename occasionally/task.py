@@ -5,6 +5,21 @@ from log import log
 class MaxCallException(Exception):
     """An error to raise when the task has reached its maximum call count threshold"""
 
+class ComparatorException(Exception):
+    """Error to raise when two tasks cannot be compared for time"""
+
+def soonest_task_comparator(task1, task2):
+    """
+    Args:
+        task1: Task
+        task2: Task
+    """
+    if not task1._next_invoke:
+        if not task2._next_invoke:
+            raise ComparatorException("neither task1 %s nor task2 %s have _next_invoke set" % (task1, task2))
+        return task2
+    return task1 if task1._next_invoke < task2._next_invoke else task2
+
 class Task():
 
     def __init__(self, call_function, frequency_function, call_args=list(), call_kwargs=dict(), next_task=None, exception_handler=None, call_next_task_on_exception=False, schedule_immediately=False, just_x_times=-1):
@@ -40,6 +55,7 @@ class Task():
         self._next_task = next_task
         self._exception_handler = exception_handler
         self._call_next_task_on_exception = call_next_task_on_exception
+        self._schedule_immediately = schedule_immediately
         self._max_calls = just_x_times
         self._successful_calls = 0
         self._unsuccessful_calls = 0
@@ -80,18 +96,17 @@ class Task():
             log.debug("Task %s invoking next_task %s", self, self._next_task)
             self._next_task.invoke()
 
-    def set_next_invoke(self, immediately=False):
+    def set_next_invoke(self):
         """Sets the next time for the task on self._next_invoke
 
         Args:
-            immediately: A bool that forces time.time() to be used for the invocation time instead of self._frequency_function
 
         Returns:
         """
 
         if self._max_calls_hit():
             raise MaxCallException("Task %s has hit its maximum number of calls" % self)
-        if immediately:
+        if self.times_called == 0 and self._successful_calls:
             self._next_invoke = time.time()
         else:
             self._next_invoke = time.time() + self._frequency_function()
