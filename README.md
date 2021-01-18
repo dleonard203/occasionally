@@ -9,20 +9,20 @@ The `ocassionally.scheduler.Scheduler` class runs these Tasks at their set inter
 
 For example:
 
-```
-from ocasionally.task import Task
+\`\`\`from ocasionally.task import Task
 from ocassionally.scheduler import Scheduler
 from ocasionally.time_helper import after_x_minutes
 
 def clean_db():
-    # get rid of temp users that are created to trial the app. this is pseudo code
+
+    \# get rid of temp users that are created to trial the app. this is pseudo code
     with MyDbConnection() as db:
+
         db.Execute("DELETE FROM users WHERE temp_user = 1 AND logged_out = 1")
 
 db_cleaner = ocassionally.task.Task(clean_db, after_x_mintes(5))  # makes a task that cleans the db every 5 minutes
 Scheduler.add_task(db_cleaner)  # adds the task to the scheduler
-Scheduler.foreground()  # start the scheduler running in foreground mode (main thread)
-```
+Scheduler.foreground()  # start the scheduler running in foreground mode (main thread)\`\`\`
 
 ## Contributing
 Since this package only relies on stdlib functionality, setup is pretty easy. On Linux:
