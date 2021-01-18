@@ -1,0 +1,15 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+
+[requires]
+python_version = "2.7"
+
+[dev-packages]
+wheel = "==0.36.2"
+setuptools = "==44.1.1"
+pytest = "==4.6.11"
+twine = "==1.15.0"

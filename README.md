@@ -25,14 +25,16 @@ Scheduler.foreground()  # start the scheduler running in foreground mode (main t
 ```
 
 ## Contributing
-Since this package only relies on stdlib functionality, setup is pretty easy. On Linux:
+Since this package only relies on stdlib functionality, setup is pretty easy (tested on ubuntu 16.04):
 
-1.) Setup virtual env (`virtualenv env`).
+1.) Install pipenv (`pip install pipenv`).
 
-2.) Activate virtual env (`source env/bin/activate`).
+2.) Activate virtual env (`pipenv shell`).
 
-3.) Run `./run_tests.sh` to run the tests and install the package in your virtualenv.
+3.) Download dev requirements (`pipenv install --dev`).
 
-4.) Edit code in the `occasionally` folder, and make sure you the tests still pass with `./run_tests.sh`!
+4.) Run `./run_tests.sh` to run the tests and install the package in your virtualenv.
 
-5.) Code is documented with the Google python style guide (https://google.github.io/styleguide/pyguide.html) and tests are implemented in pytest.
+5.) Edit code in the `occasionally` folder, and make sure you the tests still pass with `./run_tests.sh`!
+
+6.) Code is documented with the Google python style guide (https://google.github.io/styleguide/pyguide.html) and tests are implemented in pytest.
