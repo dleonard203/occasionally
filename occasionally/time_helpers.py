@@ -8,9 +8,9 @@ def after_x_seconds(seconds):
         seconds: int describing number of seconds to call tasks after
 
     Returns:
-        int: seconds (no modification)
+        function that returns seconds (no modification)
     """
-    return seconds
+    return lambda: seconds
 
 
 def after_x_mintes(minutes):
@@ -20,9 +20,9 @@ def after_x_mintes(minutes):
         minutes: int describing number of minutes to call tasks after
 
     Returns:
-        int: seconds to call tasks after
+        function that returns seconds to call tasks after
     """
-    return minutes * 60
+    return lambda: minutes * 60
 
 
 def after_x_hours(hours):
@@ -32,7 +32,7 @@ def after_x_hours(hours):
         hours: int describing number of hours to call tasks after
 
     Returns:
-        int: seconds to call tasks after
+        function that returns seconds to call tasks after
     """
 
-    return hours * 3600
+    return lambda: hours * 3600
