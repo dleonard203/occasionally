@@ -54,7 +54,13 @@ class Task():
         Args:
 
         Returns:
+
+        Raises:
+            MaxCallException if the max call counter has been hit
         """
+
+        if self._max_calls_hit():
+            raise MaxCallException("Task %s has hit its maximum call count" % self)
         hit_exception = False
         try:
             rv = self._call_function(*self._call_args, **self._call_kwargs)
@@ -83,12 +89,15 @@ class Task():
         Returns:
         """
 
-        if self._max_calls > 0 and self.times_called >= self._max_calls:
+        if self._max_calls_hit():
             raise MaxCallException("Task %s has hit its maximum number of calls" % self)
         if immediately:
             self._next_invoke = time.time()
         else:
             self._next_invoke = time.time() + self._frequency_function()
+
+    def _max_calls_hit(self):
+        return self._max_calls > 0 and self.times_called >= self._max_calls
 
     @property
     def times_called(self):

@@ -1,7 +1,6 @@
 import time
 import pytest
-from occasionally.task import Task
-import occasionally
+from occasionally.task import Task, MaxCallException
 
 def mutate_dict(d, k, v):
     # dict[key] = value. lambda's can't have assignments in them
@@ -49,5 +48,7 @@ def test_next_task_on_exception():
 def test_max_invoke():
     t = Task(empty, lambda: 5, just_x_times=1)
     t.invoke()
-    with pytest.raises(occasionally.task.MaxCallException):
+    with pytest.raises(MaxCallException):
         t.set_next_invoke()
+    with pytest.raises(MaxCallException):
+        t.invoke()
