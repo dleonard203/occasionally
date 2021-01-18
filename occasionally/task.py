@@ -2,6 +2,9 @@ import time
 from log import log
 
 
+class MaxCallException(Exception):
+    """An error to raise when the task has reached its maximum call count threshold"""
+
 class Task():
 
     def __init__(self, call_function, frequency_function, call_args=list(), call_kwargs=dict(), next_task=None, exception_handler=None, call_next_task_on_exception=False, schedule_immediately=False, just_x_times=-1):
@@ -79,6 +82,9 @@ class Task():
 
         Returns:
         """
+
+        if self._max_calls > 0 and self.times_called >= self._max_calls:
+            raise MaxCallException("Task %s has hit its maximum number of calls" % self)
         if immediately:
             self._next_invoke = time.time()
         else:
