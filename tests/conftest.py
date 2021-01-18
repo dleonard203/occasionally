@@ -1,6 +1,7 @@
 import pytest
 import occasionally
 from occasionally.priority_queue import PriorityQueue
+from occasionally.scheduler import Scheduler
 
 
 def min_queue_comparator(x, y):
@@ -20,3 +21,14 @@ def priority_max_queue():
 @pytest.fixture
 def small_max_queue():
     yield PriorityQueue(max_queue_comparator, max_size=2)
+
+@pytest.fixture
+def scheduler():
+    yield Scheduler()
+
+def empty_func():
+    pass
+
+@pytest.fixture
+def empty():
+    yield empty_func

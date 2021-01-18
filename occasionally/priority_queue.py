@@ -7,7 +7,7 @@ class QueueFullException(Exception):
 class QueueEmptyException(Exception):
     """An exception to raise when the queue is empty and someone tries to dequeue or peek"""
 
-class PriorityQueue():
+class PriorityQueue(object):
     """A class representing a priority queue. Backed by deque (thread safe double-ended queue)
     Follows a traditional priority queue model, where elements are either floated up (on insert)
     or down (on dequeue) so that index 0 is the next element to be executed. Index > 0 implies

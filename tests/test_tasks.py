@@ -9,8 +9,6 @@ def mutate_dict(d, k, v):
 def raise_exception():
     raise Exception("Error")
 
-def empty():
-    pass
 
 def test_testable_task():
     mutable_obj = dict()
@@ -29,7 +27,7 @@ def test_exception_cleanup():
     t.invoke()
     assert mutable_obj == {"test": 2}
 
-def test_next_task():
+def test_next_task(empty):
     mutable_obj = dict()
     next_task = Task(mutate_dict, None, call_args=(mutable_obj, "test", 3))
     t = Task(empty, lambda: 5, next_task=next_task)
@@ -45,7 +43,7 @@ def test_next_task_on_exception():
     # next_task should be invoked even on error
     assert mutable_obj == {"test": 4}
 
-def test_max_invoke():
+def test_max_invoke(empty):
     t = Task(empty, lambda: 5, just_x_times=1)
     t.invoke()
     with pytest.raises(MaxCallException):
